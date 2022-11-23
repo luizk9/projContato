@@ -4,29 +4,32 @@
     ViewData["Title"] = "Editar Contato";
 }
 
-<div class="text-center">
-  
-     <h1 class="display-4">Alterar o Contato</h1>  
+<div class="text-center">  
+     <h1 class="display-4">Editar Contato</h1>  
 </div>
 
 <form asp-controller="Contato" asp-action="Alterar" method="post">
+
+  <input type="hidden" asp-for="Id"/>
+
   <div class="form-group">
-    <label for="nome">Nome</label>
-    <input type="text" class="form-control"  placeholder="digite contato" /> 
+    <label for="nome" class="form-label">Nome</label>
+    <input type="text" asp-for="Nome" class="form-control"  placeholder="digite contato"/> 
+  </div>
+
+  <br/>
+
+  <div class="form-group">
+    <label for="Local" class="form-label" >Local</label>
+    <input type="text" asp-for="Local" class="form-control"  placeholder="digite local do contato" /> 
   </div>
   <br/>
   <div class="form-group">
-    <label for="local">Local</label>
-    <input type="text" class="form-control"  placeholder="digite local do contato" /> 
-  </div>
-  <br/>
-  <div class="form-group">
-    <label for="valor">Valor</label>
-    <input type="text" class="form-control"  placeholder="digite o valor" /> 
+    <label for="ValorTotal" class="form-label">Valor Total</label>
+    <input type="text" asp-for="ValorTotal" class="form-control"  placeholder="digite o valor" /> 
   </div>
       
-    <button type="submit" class="btn btn-success btn-block">Aterar</button>
-    <a class="btn btn-warning btn-block" asp-controller="Contato" asp-action="Index" role="button">Voltar</a>
-
+    <button type="submit" class="btn btn-success btn-block">Alterar</button>
+    <a class="btn btn-warning btn-block" asp-action="Index" asp-controller="Contato" role="button">Voltar</a>
   
 </form>
