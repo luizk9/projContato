@@ -40,8 +40,29 @@ public class ContatoController : Controller
 
     public IActionResult Apagar(int id)
     {
-        _contatoRepositorio.Apagar(id);
-        return RedirectToAction("Index");
+        try
+        {
+          bool apagado =  _contatoRepositorio.Apagar(id);
+          if(apagado)
+          {
+            TempData["MensagemSucesso"] = "Contato deletado com sucesso";
+           
+          }else
+          {
+            TempData["MensagemErro"] = "danou-se errasse ....";
+
+          }
+           return RedirectToAction("Index");
+              
+            
+        }
+        catch (System.Exception erro)
+        {
+            
+            TempData["MensagemErro"] = $"Opa, não conseguimos apagar..detalhe do erro:{erro.Message}";
+            return RedirectToAction("Index"); 
+        }
+        
     }
     
 
@@ -52,20 +73,44 @@ public class ContatoController : Controller
 
     [HttpPost]
     public IActionResult Criar(ContatoModel contato)
-    {
+    {    
+        try
+        {            
+            if(ModelState.IsValid)
+            {
+                _contatoRepositorio.Adicionar(contato);
+                TempData["MensagemSucesso"] = "Contato cadastrado com sucesso";
+                return RedirectToAction("Index");
+            }
+            return View(contato);             
+        }
+        catch (System.Exception erro)
+        {
+             TempData["MensagemErro"] = $"Opa, não conseguimos cadastrar..detalhe do erro:{erro.Message}";
+              return RedirectToAction("Index");        
+        }      
         
-        _contatoRepositorio.Adicionar(contato);
-        return RedirectToAction("Index");
-        // vai injetar o repositorio atraves do construtor acima
-        //agora tem que no program.cs injetar a interface
-        // tem que na view chamar esse metodo..
     }
 
     [HttpPost]
     public IActionResult Alterar(ContatoModel contato)
     {
-        _contatoRepositorio.Atualizar(contato);
-        return RedirectToAction("Index");
+      try
+      {
+            if(ModelState.IsValid)
+            {
+                _contatoRepositorio.Atualizar(contato);
+                 TempData["MensagemSucesso"] = "Contato Editado com sucesso";
+                return RedirectToAction("Index");
+            }
+            return RedirectToAction("Editar", contato);
+      }
+      catch (System.Exception erro)
+      {
+        
+          TempData["MensagemErro"] = $"Opa, não conseguimos editar..detalhe do erro:{erro.Message}";
+         return RedirectToAction ("Index");      
+      }
     }
 
 

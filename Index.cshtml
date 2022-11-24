@@ -4,13 +4,36 @@
     ViewData["Title"] = "Lista de Contato";
 }
 
-<div>
-    <a class="btn btn-primary btn-lg" role="button" asp-controller="Contato" asp-action="Criar" >Adicionar novo contato...</a>  
-</div>
-<div>
-    <h1 class="display-4">Lista de Contatos</h1>  
-</div>
+  <div>
+      <a class="btn btn-primary btn-lg" role="button" asp-controller="Contato" asp-action="Criar" >Adicionar novo contato...</a>  
+  </div>
+  <div>
+      <h1 class="display-4">Lista de Contatos</h1>  
+  </div>
+  <br/>
 
+<!-- menssagens de erro bootstrap alert -->
+
+@if(TempData["MensagemSucesso"] != null)
+{
+    <div class="alert alert-danger text-center" role="alert">
+      <button type="button" class="btn btn-danger btn-sm close-alert" ariel-label="Close">x</button>
+      
+      @TempData["MensagemSucesso"]
+    </div>
+}
+
+@if(TempData["MensagemErro"] != null)
+{  
+    <div class="alert alert-success text-center" role="alert">
+     <button type="button" class="btn btn-danger btn-sm close-alert" ariel-label="Close">x</button>
+      This is a success alert—check it out!
+      @TempData["MensagemErro"]
+    </div>
+}
+<br/>
+  
+<!-- fim-->
 <div class="text-center">
 <table  class="table table-striped">
   <thead>
